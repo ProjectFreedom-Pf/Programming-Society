@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name ="viewport" content="width=device-width, initial-scale=1">
+		<title>Programming Society</title>
+		<link rel="stylesheet" href="StyleSheet.css">
+		<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+	</head>
+	<body#>
+		<div class="main">
+			<div class="navbar">
+				<div class="icon" onclick="showSection('profile')">
+					<h2 class="Name">
+						HOME
+                    			</h2>
+				</div>
+
+				<div class="menu">
+					<ul>
+						<li><a href="#" onclick="showSection('us')">ABOUT US</a></li>
+						<li><a href="#" onclick="showSection('mission')">MISSION</a></li>
+						<li><a href="#" onclick="showSection('team')">TEAM</a></li>
+						<li><a href="#" onclick="showSection('contact')">CONTACT</a></li>
+					</ul>
+				</div>
+			</div>
+
+		<div class="content" id="profile">
+			<h1 style="color: #3E2723;">Latest News<br></h1>
+			<p class="par" style="color: #3E2723;">We are now accepting new members.</p>
+		</div>
+
+		<div class="content" id="us" style="display: none;">
+			<h1 style="color: #3E2723;">About us<br></h1>  
+			<p class="par" style="color: #3E2723;">The Programming Society is a "club" that meets up every Friday during Lunch to discuss or code fun projects e.g. Chess on Python, Calculator.<br></p>
+        </div>
+		<div class="content" id="mission" style="display: none;">
+			<h1 style="color: #3E2723;">Mission<br></h1>
+			<p class="par" style="color: #3E2723;">We do not currently have a primary mission.<br></p>
+           	</div>
+		
+		<div class="content" id="team" style="display: none;">
+			<h1 style="color: #3E2723;">Current Members</h1>
+            <p class="par" style="color: #3E2723;"><strong>Kayden Chan:</strong> Founder<br></p>
+            <p class="par" style="color: #3E2723;"><strong>Nyan Naing:</strong> Co founder<br></p>
+	    <p class="par" style="color: #3E2723;"><strong>Thomas Raymond:</strong> Mascot<br></p> 
+		</div>
+
+		<div class="content" id="contact" style="display: none;">
+			<h1 style="color: #3E2723;">Contact</h1>
+			<form id="contact-form">
+				<label for="name">Your Name:</label>
+				<input type="text" id="name" name="user_name" required>
+
+				<label for="email">Your Email:</label>
+				<input type="email" id="email" name="user_email" required>
+
+				<label for="message">Your Message:</label>
+				<textarea id="message" name="user_message" required></textarea>
+
+				<button type="submit">Send Message</button>
+			</form>
+			<p id="form-status"></p>
+		</div>
+
+		</div>
+
+		<script>
+			function showSection(sectionId) {
+				const sections = document.querySelectorAll('.content');
+				sections.forEach(section => {
+					section.style.display = 'none';
+				});
+				document.getElementById(sectionId).style.display = 'block';
+			}
+
+
+			(function() {
+
+				emailjs.init('1Kb4ejYlrZsbirskR');
+			})();
+
+			document.getElementById('contact-form').addEventListener('submit', function(event) {
+				event.preventDefault();
+
+				var form = event.target;
+				var formStatus = document.getElementById('form-status');
+				
+
+				emailjs.sendForm('service_dxa847o', 'template_cjljryf', form)
+					.then(function(response) {
+						console.log('SUCCESS!', response);
+						formStatus.textContent = 'Your message has been sent successfully!';
+						form.reset();
+					}, function(error) {
+						console.log('FAILED....', error);
+						formStatus.textContent = 'Sorry, something went wrong. Please try again later.';
+					});
+			});
+		</script>
+	</body>
+</html>
